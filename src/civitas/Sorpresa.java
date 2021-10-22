@@ -14,36 +14,39 @@ public class Sorpresa {
 
     private String texto;
     private int valor;
-    
+
     private TipoSorpresa tipo;
     private MazoSorpresas mazo;
-    
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos){
-        
-        if(tipo == TipoSorpresa.PAGARCOBRAR){
+
+    void aplicarAJugador(int actual, ArrayList<Jugador> todos) {
+
+        if (tipo == TipoSorpresa.PAGARCOBRAR) {
             this.aplicarAJugador_pagarCobrar(actual, todos);
-        }
-        
-        else if(tipo == TipoSorpresa.PORCASAHOTEL){
+        } else if (tipo == TipoSorpresa.PORCASAHOTEL) {
             this.aplicarAJugador_porCasaHotel(actual, todos);
         }
-        
+
     }
-    private void  aplicarAJugador_pagarCobrar(int actual, ArrayList<Jugador> todos){
+
+    private void aplicarAJugador_pagarCobrar(int actual, ArrayList<Jugador> todos) {
         this.informe(actual, todos);
         todos.get(actual).modificaSaldo(valor);
     }
-    private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos){
+
+    private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos) {
         this.informe(actual, todos);
-        todos.get(actual).modificaSaldo(valor);
+        todos.get(actual).modificaSaldo(valor);             //tengo mis dudas sobre estos, pero el guión dice que se llame a modificasaldo.
     }
-    private void informe(int actual, ArrayList<Jugador> todos){
+
+    private void informe(int actual, ArrayList<Jugador> todos) {
         Diario.getInstance().ocurreEvento("Se está aplicando una sorpresa a: " + todos.get(valor).getNombre());
     }
-    Sorpresa(TipoSorpresa tipo, String texto, int valor){}
-    public String toString(){
+
+    Sorpresa(TipoSorpresa tipo, String texto, int valor) {
+    }
+
+    public String toString() {
         return texto;
     }
-    
-    
+
 }

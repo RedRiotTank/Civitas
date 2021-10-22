@@ -31,13 +31,13 @@ public class Tablero {
         return true;
     }
 
-     boolean computarPasoPorSalida() {
+    boolean computarPasoPorSalida() {
         boolean PasoSalida = porSalida;
         porSalida = false;
         return PasoSalida;
     }
 
-     void aniadeCasilla(Casilla casilla) {
+    void aniadeCasilla(Casilla casilla) {
         casillas.add(casilla);
     }
 
@@ -48,12 +48,12 @@ public class Tablero {
         }
         return Devuelve;
     }
-    
-    public ArrayList<Casilla> getCasillas(){
+
+    public ArrayList<Casilla> getCasillas() {
         return null;
     }
 
-     int nuevaPosicion(int actual, int tirada) {
+    int nuevaPosicion(int actual, int tirada) {
         int newPos = (actual + tirada) % casillas.size();
 
         if (newPos != (actual + tirada)) {

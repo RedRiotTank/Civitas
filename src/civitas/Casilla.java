@@ -26,7 +26,7 @@ public class Casilla {
     private Sorpresa sorpresa;
 
     public int cantidadCasasHoteles() {
-        return this.numCasas+this.numHoteles;
+        return this.numCasas + this.numHoteles;
     }
 
     Casilla(TipoCasilla tipo, String nombre) {  //tipo casilla es Descanso
@@ -98,15 +98,17 @@ public class Casilla {
 
     public boolean tienePropietario() {
         boolean resultado = false;
-        if(this.propietario != null)
+        if (this.propietario != null) {
             resultado = true;
+        }
         return resultado;
     }
 
     public void tramitarAlquiler(Jugador jugador) {
-        if(this.tienePropietario() && this.esEsteElPropietario(jugador))
+        if (this.tienePropietario() && this.esEsteElPropietario(jugador)) {
             jugador.pagaAlquiler(this.getPrecioAlquilerCompleto());
-            this.propietario.recibe(this.getPrecioAlquilerCompleto());
+        }
+        this.propietario.recibe(this.getPrecioAlquilerCompleto());
     }
 
     int getNumCasas() {
@@ -137,17 +139,18 @@ public class Casilla {
             this.numCasas = this.numCasas - numero;
             satisfactorio = true;
         }
-        
+
         return satisfactorio;
     }
 
     public boolean esEsteElPropietario(Jugador jugador) {
         boolean resultado = false;
-        if(jugador == this.propietario)
+        if (jugador == this.propietario) {
             resultado = true;
-        
+        }
+
         return resultado;
-        
+
     }
 
     boolean igualdadIdentidad(Casilla otraParcela) {

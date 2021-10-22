@@ -10,8 +10,7 @@ import java.util.ArrayList;
  *
  * @author albertoplaza
  */
-public class Jugador implements Comparable<Jugador>{
-    
+public class Jugador implements Comparable<Jugador> {
 
     protected static int CasasMax = 4;
     protected static int CasasPorHotel = 4;
@@ -27,8 +26,9 @@ public class Jugador implements Comparable<Jugador>{
     private ArrayList<Casilla> propiedades;
 
     int cantidadCasasHoteles() {
-        return 1;
+        return this.propiedades.size();
     }
+
     //@Override
     public int compareTo(Jugador otro) {
         return Float.compare(this.saldo, otro.saldo);
@@ -48,19 +48,22 @@ public class Jugador implements Comparable<Jugador>{
 
     boolean enBancarrota() {
         boolean bancarrota = false;
-        if (this.saldo <= 0)
+        if (this.saldo <= 0) {
             bancarrota = true;
-        
+        }
+
         return bancarrota;
-        
+
     }
 
     private boolean existeLaPropiedad(int ip) { //?????
-    boolean existe = false;
-        for(int i=0; i<this.propiedades.size(); i++)
-            if(ip == i)
+        boolean existe = false;
+        for (int i = 0; i < this.propiedades.size(); i++) {
+            if (ip == i) {
                 existe = true;
-        
+            }
+        }
+
         return existe;
     }
 
@@ -100,14 +103,14 @@ public class Jugador implements Comparable<Jugador>{
         return saldo;
     }
 
-    Jugador(String nombre){
+    Jugador(String nombre) {
         casillaActual = 0;
         this.nombre = nombre;
         puedeComprar = false;
         propiedades = null;
     }
 
-    protected Jugador(Jugador otro) {  
+    protected Jugador(Jugador otro) {
         casillaActual = otro.getCasillaActual();
         this.nombre = otro.getNombre();
         puedeComprar = otro.puedeComprarCasilla();
@@ -115,33 +118,33 @@ public class Jugador implements Comparable<Jugador>{
     }
 
     boolean modificaSaldo(float cantidad) {
-        
+
         this.saldo = this.saldo + cantidad;
-        Diario.getInstance().ocurreEvento(nombre + " modifica " +  cantidad);
-        
+        Diario.getInstance().ocurreEvento(nombre + " modifica " + cantidad);
+
         return true;
     }
 
     boolean moverACasilla(int numCasilla) {
         this.casillaActual = numCasilla;
-        this.puedeComprar = false; 
+        this.puedeComprar = false;
         Diario.getInstance().ocurreEvento("El jugador " + this.nombre + " se movió a la casilla " + this.getCasillaActual());
         return true;
     }
 
     boolean paga(float cantidad) {
-        return this.modificaSaldo(-1*cantidad);   
-                }
+        return this.modificaSaldo(-1 * cantidad);
+    }
 
     boolean pagaAlquiler(float cantidad) {
         return this.paga(cantidad);
-        
+
     }
 
     boolean pasaPorSalida() {
         this.recibe(PasoPorSalida);
         Diario.getInstance().ocurreEvento("El jugador " + this.nombre + " ha pasado por la casilla de salida");
-        
+
         return true;
     }
 
@@ -152,26 +155,29 @@ public class Jugador implements Comparable<Jugador>{
 
     private boolean puedoEdificarCasa(Casilla propiedad) {
         boolean puedoHacerCasa = false;
-        
-        if(this.puedoGastar(propiedad.getPrecioEdificar()) && propiedad.getNumCasas() < CasasMax )
+
+        if (this.puedoGastar(propiedad.getPrecioEdificar()) && propiedad.getNumCasas() < CasasMax) {
             puedoHacerCasa = true;
-        
-            return puedoHacerCasa;
+        }
+
+        return puedoHacerCasa;
     }
 
     private boolean puedoEdificarHotel(Casilla propiedad) {
-       boolean puedoHacerHotel = false;
-        if(this.puedoGastar(propiedad.getPrecioEdificar()) && propiedad.getNumHoletes() < HotelesMax && propiedad.getNumCasas() >= 3)
-        puedoHacerHotel = true;
-        
+        boolean puedoHacerHotel = false;
+        if (this.puedoGastar(propiedad.getPrecioEdificar()) && propiedad.getNumHoletes() < HotelesMax && propiedad.getNumCasas() >= 3) {
+            puedoHacerHotel = true;
+        }
+
         return puedoHacerHotel;
     }
 
     private boolean puedoGastar(float precio) {
         boolean puedeGastar = false;
-        
-        if(precio <= this.getSaldo())
-            puedeGastar= true;
+
+        if (precio <= this.getSaldo()) {
+            puedeGastar = true;
+        }
         return puedeGastar;
     }
 
@@ -181,15 +187,16 @@ public class Jugador implements Comparable<Jugador>{
 
     boolean tieneAlgoQueGestionar() {
         boolean TienePropiedades = false;
-        
-        if(this.propiedades.size() != 0)
+
+        if (this.propiedades.size() != 0) {
             TienePropiedades = true;
-        
+        }
+
         return TienePropiedades;
     }
 
     public String toString() {
-        return this.nombre +" en casilla: " + this.casillaActual;
+        return this.nombre + " en casilla: " + this.casillaActual;
     }
 
 }

@@ -19,8 +19,9 @@ public class Dado {
     private int ultimoResultado;
     boolean debug = false;  //creo ue hay que quitar el = false
 
-    Dado(){}
-   
+    Dado() {
+    }
+
     public static Dado getInstance() {
         return instance;
     }
@@ -53,7 +54,7 @@ public class Dado {
         Diario.getInstance().ocurreEvento("cambio a modo " + modo);
     }
 
-     int getUltimoResultado() {
+    int getUltimoResultado() {
         return ultimoResultado;
     }
 
