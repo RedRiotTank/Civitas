@@ -53,7 +53,11 @@ public class Casilla {
     }
 
     boolean comprar(Jugador jugador) {
-        return false;
+        this.propietario = jugador;
+        
+        this.propietario.paga(precioCompra);
+        
+        return true;
     }
 
     String getNombre() {
@@ -88,12 +92,58 @@ public class Casilla {
     }
 
     void recibeJugador(int iactual, ArrayList<Jugador> todos) {
+
+        /*
+        
+        //Se puede hacer así más limpio? aunque no sea exactamente lo
+        //que se implementa en el diagrama estructurar?
+        
+        TipoCasilla tipo = this.tipo;
+        
+        switch(tipo){
+            case CALLE:
+                recibeJugador_calle(iactual, todos);
+            case SORPRESA:
+                recibeJugador_sorpresa(iactual, todos);
+            case DESCANSO:
+                informe(iactual, todos);
+        }
+        
+         */
+        TipoCasilla tipo = this.tipo;
+
+        if (tipo == TipoCasilla.CALLE) {
+            recibeJugador_calle(iactual, todos);
+        }
+
+        if (tipo == TipoCasilla.SORPRESA) {
+            recibeJugador_sorpresa(iactual, todos);
+        }
+        if (tipo == TipoCasilla.DESCANSO) {
+            informe(iactual, todos);
+        }
     }
 
     private void recibeJugador_calle(int iactual, ArrayList<Jugador> todos) {
+        this.informe(iactual, todos);
+        
+        Jugador jugador = todos.get(iactual);
+        
+        if(!this.tienePropietario())
+            jugador.puedeComprarCasilla();
+        
+        else
+            this.tramitarAlquiler(jugador);
+        
+    
     }
 
     private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos) {
+    
+        Sorpresa sorpresa = this.mazo.siguiente();
+        this.informe(iactual, todos);
+        sorpresa.aplicarAJugador(iactual, todos);
+    
     }
 
     public boolean tienePropietario() {
@@ -124,12 +174,14 @@ public class Casilla {
     }
 
     boolean construirCasa(Jugador jugador) {
+        jugador.paga(precioEdificar);
         numCasas += 1;
         return true;
     }
 
     boolean construirHotel(Jugador jugador) {
-        numHoteles += 1;
+        propietario.paga(precioEdificar);
+        numHoteles++;
         return true;
     }
 

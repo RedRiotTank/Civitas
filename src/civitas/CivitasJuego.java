@@ -22,6 +22,14 @@ public class CivitasJuego {
     private GestorEstados gestEstados;
 
     private void avanzarJugador() {
+        Jugador jugadorActual = this.getJugadorActual();   
+        int posicionActual = jugadorActual.getCasillaActual();  
+        int tirada = Dado.getInstance().tirar();
+        int posicionNueva = this.tablero.nuevaPosicion(posicionActual, tirada);
+        Casilla casilla = tablero.getCasilla(posicionNueva);
+        this.contabilizarPasosPorSalida();
+        jugadorActual.moverACasilla(posicionNueva);
+        casilla.recibeJugador(indiceJugadorActual, jugadores);  
     }
 
     public CivitasJuego(ArrayList<String> nombres, boolean debug) {
@@ -46,7 +54,14 @@ public class CivitasJuego {
     }
 
     public boolean comprar() {
-        return false;
+      
+        Jugador jugadorActual = this.getJugadorActual();
+        int numCasillaActual = jugadorActual.getCasillaActual();
+        Casilla casilla = tablero.getCasilla(numCasillaActual);
+        boolean res = jugadorActual.comprar(casilla);
+                
+                
+        return res;
     }
 
     public boolean contruirCasa(int ip) {
@@ -119,7 +134,7 @@ public class CivitasJuego {
 
     private void inicializaTablero(MazoSorpresas mazo) {
 
-        Casilla salida = new Casilla(TipoCasilla.DESCANSO, "Salida");
+        
         
         Casilla calle1 = new Casilla(TipoCasilla.CALLE, "calle1", 100,  500, 25);
         Casilla calle2 = new Casilla(TipoCasilla.CALLE, "calle2", 100,  500, 25);
@@ -141,7 +156,7 @@ public class CivitasJuego {
         Casilla Sorpresa3 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa3", this.mazo);
         Casilla Sorpresa4 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa4", this.mazo);
         
-        this.tablero.aniadeCasilla(salida);
+       
         
         this.tablero.aniadeCasilla(calle1);
         this.tablero.aniadeCasilla(calle2);
@@ -178,8 +193,22 @@ public class CivitasJuego {
     }
 
     public OperacionJuego siguientePaso() {
-        return null;
-    }  //operacionesJuego???
+        Jugador jugadorActual = this.getJugadorActual();
+        
+        OperacionJuego operacion = this.gestEstados.siguienteOperacion(jugadorActual, estado);
+             
+        
+        if(operacion==OperacionJuego.PASAR_TURNO){
+            this.pasarTurno();
+            this.siguientePasoCompletado(operacion);
+        }
+        else if (operacion == OperacionJuego.AVANZAR){
+            this.avanzarJugador();
+            this.siguientePasoCompletado(operacion);
+        }
+        
+        return operacion;
+    }  
 
     public void siguientePasoCompletado(OperacionJuego operacion) {
         gestEstados.siguienteEstado(this.jugadores.get(indiceJugadorActual), this.estado, operacion);
