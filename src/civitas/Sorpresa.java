@@ -32,17 +32,23 @@ public class Sorpresa {
         this.informe(actual, todos);
         todos.get(actual).modificaSaldo(valor);
     }
-
+    
+    
     private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos) {
+        this.valor = todos.get(actual).cantidadCasasHoteles()*this.valor;
         this.informe(actual, todos);
         todos.get(actual).modificaSaldo(valor);             //tengo mis dudas sobre estos, pero el guión dice que se llame a modificasaldo.
     }
 
     private void informe(int actual, ArrayList<Jugador> todos) {
-        Diario.getInstance().ocurreEvento("Se está aplicando una sorpresa a: " + todos.get(valor).getNombre());
+        Diario.getInstance().ocurreEvento("Se está aplicando una sorpresa a: " + todos.get(actual).getNombre() + "\n" + this.toString());
     }
 
     Sorpresa(TipoSorpresa tipo, String texto, int valor) {
+        
+        this.tipo = tipo;
+        this.texto = texto;
+        this.valor = valor;
     }
 
     public String toString() {

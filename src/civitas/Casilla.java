@@ -23,15 +23,15 @@ public class Casilla {
 
     private Jugador propietario;
     private MazoSorpresas mazo;
-    private Sorpresa sorpresa;
+    private Sorpresa sorpresa;  //no se usa
 
     public int cantidadCasasHoteles() {
         return this.numCasas + this.numHoteles;
     }
 
-    Casilla(TipoCasilla tipo, String nombre) {  //tipo casilla es Descanso
+    Casilla(TipoCasilla tipo, String nombre) {  // Descanso     RELLENAR CONSTRUCTORES
         this.init();
-        this.tipo = tipo;   // como lo hago para que se inicialice por defecto???
+        this.tipo = tipo;  
         this.Nombre = nombre;
 
     }
@@ -73,7 +73,7 @@ public class Casilla {
     }
 
     void informe(int iactual, ArrayList<Jugador> todos) {
-        Diario.getInstance().ocurreEvento("El jugador: " + propietario.getNombre()
+        Diario.getInstance().ocurreEvento("El jugador: " + todos.get(iactual).getNombre()
                 + " ha caido en la casilla: " + this.toString());
 
     }
@@ -165,7 +165,7 @@ public class Casilla {
         return numCasas;
     }
 
-    int getNumHoletes() {
+    int getNumHoteles() {
         return numHoteles;
     }
 
@@ -221,8 +221,8 @@ public class Casilla {
                 || this.getPrecioCompra() != otraParcela.getPrecioCompra()
                 || this.getPrecioEdificar() != otraParcela.getPrecioEdificar()
                 || this.precioBaseAlquiler != otraParcela.precioBaseAlquiler
-                || this.getNumCasas() != otraParcela.getNumHoletes()
-                || this.getNumHoletes() != otraParcela.getNumHoletes()) {
+                || this.getNumCasas() != otraParcela.getNumHoteles()
+                || this.getNumHoteles() != otraParcela.getNumHoteles()) {
             igual = false;
         }
 
@@ -232,10 +232,18 @@ public class Casilla {
     public String toString() {
         String Cadena = null;
         if (!this.tienePropietario()) {
-            Cadena = "Calle " + Nombre + ". Precios: Compra: " + precioCompra + ", Edificar: " + precioEdificar + ", Alquiler Base: " + precioBaseAlquiler
+            
+            if(this.tipo == TipoCasilla.CALLE)
+                Cadena = "Calle " + Nombre + ". Precios: Compra: " + precioCompra + ", Edificar: " + precioEdificar + ", Alquiler Base: " + precioBaseAlquiler
                     + ", Casas: " + numCasas + ", Hoteles: " + numHoteles + ".";
+            
+            if(this.tipo == TipoCasilla.SORPRESA)
+                Cadena = "Sorpresa";
+            if(this.tipo == TipoCasilla.DESCANSO)
+                Cadena = "Descanso";
+            
         } else {
-            Cadena = this.propietario.getNombre();
+            Cadena = "Esta calle es de: " + this.propietario.getNombre();
         }
         return Cadena;
     }

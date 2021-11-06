@@ -33,13 +33,15 @@ public class CivitasJuego {
     }
 
     public CivitasJuego(ArrayList<String> nombres, boolean debug) {
+        
+        this.jugadores = new ArrayList<>();
         for (int i = 0; i < nombres.size(); i++) {
             Jugador jugador = new Jugador(nombres.get(i));
             this.jugadores.add(jugador);
         }
 
         gestEstados = new GestorEstados();
-        gestEstados.estadoInicial();
+        estado = gestEstados.estadoInicial();
 
         Dado.getInstance().setDebug(debug);
         indiceJugadorActual = Dado.getInstance().quienEmpieza(jugadores.size());
@@ -63,6 +65,10 @@ public class CivitasJuego {
                 
         return res;
     }
+    
+    public int getNumPropiedadesJugadorActual(){
+        return this.jugadores.get(indiceJugadorActual).getPropiedades().size();
+    }
 
     public boolean contruirCasa(int ip) {
         return this.jugadores.get(indiceJugadorActual).construirCasa(ip);
@@ -80,11 +86,14 @@ public class CivitasJuego {
 
     public boolean finalDelJuego() {
         boolean finJuego = false;
-        for (int i = 0; i < this.jugadores.size(); i++) {
-            if (this.jugadores.get(i).enBancarrota()) {
+        for (int i = 0; i < this.jugadores.size(); i++) 
+            if (this.jugadores.get(i).enBancarrota()) 
                 finJuego = true;
-            }
-        }
+            
+        if(finJuego == true)
+            this.ranking();
+            
+        
 
         return finJuego;
 
@@ -101,6 +110,8 @@ public class CivitasJuego {
     public ArrayList<Jugador> getJugadores() {
         return this.jugadores;
     }
+    
+    
 
     public Tablero getTablero() {
         return this.getTablero();
@@ -114,11 +125,14 @@ public class CivitasJuego {
         Sorpresa Negativa2PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Tu primo te pide 100$", -100);
         Sorpresa Negativa3PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Multa de 50$ por exceo de velocidad", -50);
         
-        Sorpresa Positiva1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 75$ por cada una", this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*75);
-        Sorpresa Positiva2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 25$ por cada una", this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*25);
-        Sorpresa Negativa1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*-75);
-        Sorpresa Negativa2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*-25);
-        
+        //Este value es realmente el múltiplo de casas y hoteres
+        int value = this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*75;
+        Sorpresa Positiva1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 75$ por cada una", 75);
+        Sorpresa Positiva2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 25$ por cada una", 25);
+        Sorpresa Negativa1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", -75);
+        Sorpresa Negativa2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", -25);
+        //this.jugadores.get(indiceJugadorActual).cantidadCasasHoteles()*-25
+       
         mazo.alMazo(Positiva1PAGARCOBRAR);
         mazo.alMazo(Positiva2PAGARCOBRAR);
         mazo.alMazo(Positiva3PAGARCOBRAR);
@@ -155,6 +169,7 @@ public class CivitasJuego {
         Casilla Sorpresa2 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa2", this.mazo);
         Casilla Sorpresa3 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa3", this.mazo);
         Casilla Sorpresa4 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa4", this.mazo);
+        Casilla Parking = new Casilla(TipoCasilla.DESCANSO, "Parking");
         
        
         
@@ -162,21 +177,22 @@ public class CivitasJuego {
         this.tablero.aniadeCasilla(calle2);
         this.tablero.aniadeCasilla(calle3);
         this.tablero.aniadeCasilla(calle4);
+        this.tablero.aniadeCasilla(Sorpresa1);
         this.tablero.aniadeCasilla(calle5);
         this.tablero.aniadeCasilla(calle6);
         this.tablero.aniadeCasilla(calle7);
         this.tablero.aniadeCasilla(calle8);
+        this.tablero.aniadeCasilla(Sorpresa2);
         this.tablero.aniadeCasilla(calle9);
         this.tablero.aniadeCasilla(calle10);
         this.tablero.aniadeCasilla(calle11);
         this.tablero.aniadeCasilla(calle12);
+        this.tablero.aniadeCasilla(Sorpresa3);
+        this.tablero.aniadeCasilla(Parking);
         this.tablero.aniadeCasilla(calle13);
         this.tablero.aniadeCasilla(calle14);
-        
-        this.tablero.aniadeCasilla(Sorpresa1);
-        this.tablero.aniadeCasilla(Sorpresa2);
-        this.tablero.aniadeCasilla(Sorpresa3);
         this.tablero.aniadeCasilla(Sorpresa4);
+  
     }
 
     private void pasarTurno() {
@@ -211,7 +227,7 @@ public class CivitasJuego {
     }  
 
     public void siguientePasoCompletado(OperacionJuego operacion) {
-        gestEstados.siguienteEstado(this.jugadores.get(indiceJugadorActual), this.estado, operacion);
+        this.estado = gestEstados.siguienteEstado(this.jugadores.get(indiceJugadorActual), this.estado, operacion);
     }
 
 }

@@ -1,20 +1,29 @@
+package JuegoTexto;
+
+import vistaTextualCivitas.VistaTextual;
+import controladorCivitas.Controlador;
+import civitas.CivitasJuego;
+import java.util.ArrayList;
+
 //Civitas Práctica 1
 // AVISO: Esta versión de Civitas es de prueba, el main es completamente exprimental y a lo largo 
 //        de todo el código podemos encontrarnos con números mágicos, será depurada en futuras versiones.
-package civitas;
+
+
+import java.util.ArrayList;
 
 /**
  *
  * @author albertoplaza
  */
-public class Civitas {
+public class JuegoTexto {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-
+/*
         //Ej 1
         int jugadores = 4;
         int[] EmpiezaTirdas = new int[jugadores];
@@ -100,6 +109,26 @@ public class Civitas {
         Dado.tirar();
         System.out.println("Ha salido: " + Dado.getUltimoResultado());
         System.out.println("Casilla: " + tablero.nuevaPosicion(0, Dado.getUltimoResultado()));
+        
+*/
+        
+        
+        
+        //-----------------------------------------------------------------------------
+        
+        
+        System.out.println("\n");
+        
+        ArrayList<String> nombres = new ArrayList<>();
+        nombres.add("Alberto");
+        nombres.add("Jaime");
+        nombres.add("kitano");
+        nombres.add("Isma");
+              
+        CivitasJuego juego = new CivitasJuego(nombres, false);
+        VistaTextual juegoTextual = new VistaTextual(juego);
+        Controlador controlador = new Controlador(juego, juegoTextual);
+        controlador.juega();
     }
 
 }

@@ -31,7 +31,7 @@ public class Jugador implements Comparable<Jugador> {
 
     //@Override
     public int compareTo(Jugador otro) {
-        return Float.compare(this.saldo, otro.saldo);
+        return Float.compare(otro.saldo, this.saldo);
     }
 
     boolean comprar(Casilla titulo) {
@@ -151,7 +151,8 @@ public class Jugador implements Comparable<Jugador> {
         casillaActual = 0;
         this.nombre = nombre;
         puedeComprar = false;
-        propiedades = null;
+        propiedades = new ArrayList<>();
+        this.saldo = SaldoInicial;
     }
 
     protected Jugador(Jugador otro) {
@@ -159,6 +160,7 @@ public class Jugador implements Comparable<Jugador> {
         this.nombre = otro.getNombre();
         puedeComprar = otro.puedeComprarCasilla();
         propiedades = otro.getPropiedades();
+        this.saldo = otro.saldo;
     }
 
     boolean modificaSaldo(float cantidad) {
@@ -214,7 +216,7 @@ public class Jugador implements Comparable<Jugador> {
         
         float precio = propiedad.getPrecioEdificar();
         
-        if(puedoGastar(precio) && propiedad.getNumHoletes() < this.getHotelesMax() && propiedad.getNumCasas() >= this.getCasasPorHotel())
+        if(puedoGastar(precio) && propiedad.getNumHoteles() < this.getHotelesMax() && propiedad.getNumCasas() >= this.getCasasPorHotel())
             puedoEdificarHotel = true;
         
         return puedoEdificarHotel;
@@ -243,8 +245,16 @@ public class Jugador implements Comparable<Jugador> {
         return TienePropiedades;
     }
 
-    public String toString() {
-        return this.nombre + " en casilla: " + this.casillaActual;
+ public String toString() {     //REVISAR (código de isma)
+        
+     String salida = null;
+     salida = "\n" + this.nombre + " en casilla: " + this.casillaActual + "\n" + "Saldo: " + this.getSaldo() + " $\n";
+     if (this.propiedades.size() == 0)
+         salida += "No dispone de ninguna propiedad. \n" ;
+        for(int i = 0; i < this.propiedades.size(); i++)
+            salida += "Propiedad: " + (i + 1) + ": " + this.propiedades.get(i).getNumCasas() + " casas y "
+                    + this.propiedades.get(i).getNumHoteles() + " hoteles.\n";
+        
+        return salida;
     }
-
 }

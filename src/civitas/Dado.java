@@ -45,11 +45,12 @@ public class Dado {
 
         if (debug) {
             modo = Debug;
+            
         } else {
             modo = jugar;
         }
 
-        debug = debug;
+        this.debug = debug;
 
         Diario.getInstance().ocurreEvento("cambio a modo " + modo);
     }
