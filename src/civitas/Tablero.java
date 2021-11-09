@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package civitas;
 
 import java.util.ArrayList;
@@ -17,48 +13,50 @@ public class Tablero {
 
     public Tablero() {
         Casilla salida = new Casilla(TipoCasilla.DESCANSO, "Salida", 0, 0, 0);
-        casillas = new ArrayList<Casilla>();
-        casillas.add(salida);
-        porSalida = false;
+        this.casillas = new ArrayList<Casilla>();
+        this.casillas.add(salida);
+        this.porSalida = false;
+    }
+    
+    public ArrayList<Casilla> getCasillas() {
+        return this.casillas;
     }
 
     private boolean correcto(int numCasilla) {
         boolean resultado = true;
 
-        if (numCasilla > casillas.size() || numCasilla < 0) {
+        if (numCasilla > casillas.size() || numCasilla < 0) 
             resultado = false;
-        }
-        return true;
+        
+        return resultado;
     }
 
     boolean computarPasoPorSalida() {
-        boolean PasoSalida = porSalida;
-        porSalida = false;
+        boolean PasoSalida = this.porSalida;
+        this.porSalida = false;
+        
         return PasoSalida;
     }
 
     void aniadeCasilla(Casilla casilla) {
-        casillas.add(casilla);
+        this.casillas.add(casilla);
     }
 
     public Casilla getCasilla(int numCasilla) {
         Casilla Devuelve = null;
-        if (correcto(numCasilla)) {
-            Devuelve = casillas.get(numCasilla);
-        }
+        
+        if (correcto(numCasilla)) 
+            Devuelve = this.casillas.get(numCasilla);
+        
         return Devuelve;
     }
 
-    public ArrayList<Casilla> getCasillas() {
-        return null;
-    }
-
     int nuevaPosicion(int actual, int tirada) {
-        int newPos = (actual + tirada) % casillas.size();
+        int newPos = (actual + tirada) % this.casillas.size();
 
-        if (newPos != (actual + tirada)) {
-            porSalida = true;
-        }
+        if (newPos != (actual + tirada)) 
+            this.porSalida = true;
+        
         return newPos;
     }
 

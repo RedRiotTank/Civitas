@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package civitas;
 
 import java.util.ArrayList;
@@ -12,9 +8,9 @@ import java.util.ArrayList;
  */
 public class Casilla {
 
-    static private float FACTORALQUILERCALLE = 1.0f;
-    static private float FACTORALQUILERCASA = 1.0f;
-    static private float FACTORALQUILERHOTEL = 4.0f;
+    static private final float  FACTORALQUILERCALLE = 1.0f;
+    static private final float FACTORALQUILERCASA = 1.0f;
+    static private final float FACTORALQUILERHOTEL = 4.0f;
 
     private TipoCasilla tipo;
     private String Nombre;
@@ -25,157 +21,134 @@ public class Casilla {
     private MazoSorpresas mazo;
     private Sorpresa sorpresa;  //no se usa
 
-    public int cantidadCasasHoteles() {
-        return this.numCasas + this.numHoteles;
+    private void init() {
+        this.tipo = null;
+        this.Nombre = null;
+        this.precioCompra = 0;
+        this.precioEdificar = 0;
+        this.precioBaseAlquiler = 0;
+        this.numCasas = 0;
+        this.numHoteles = 0;
+        this.propietario = null;
+        this.mazo = null;
+        this.sorpresa = null;
     }
 
-    Casilla(TipoCasilla tipo, String nombre) {  // Descanso     RELLENAR CONSTRUCTORES
+    Casilla(TipoCasilla tipo, String nombre) {
         this.init();
-        this.tipo = tipo;  
+        this.tipo = tipo;
         this.Nombre = nombre;
-
     }
 
     Casilla(TipoCasilla tipo, String titulo, float precioEdificar, float precioCompra, float precioBaseAlquiler) {
-        init();
-        this.tipo = tipo;
-        this.Nombre = titulo;
+        this(tipo, titulo);
         this.precioCompra = precioCompra;
         this.precioEdificar = precioEdificar;
         this.precioBaseAlquiler = precioBaseAlquiler;
     }
 
     Casilla(TipoCasilla tipo, String nombre, MazoSorpresas mazo) {
-        this.init();
-        this.tipo = tipo;
-        this.Nombre = nombre;
+        this(tipo, nombre);
         this.mazo = mazo;
+    }
+
+    String getNombre() {
+        return this.Nombre;
+    }
+
+    float getPrecioCompra() {
+        return this.precioCompra;
+    }
+
+    float getPrecioEdificar() {
+        return this.precioEdificar;
+    }
+
+    int getNumCasas() {
+        return this.numCasas;
+    }
+
+    int getNumHoteles() {
+        return this.numHoteles;
+    }
+
+    float getPrecioAlquilerCompleto() {
+        return precioBaseAlquiler * (Casilla.FACTORALQUILERCASA + numCasas + Casilla.FACTORALQUILERHOTEL * numHoteles);
     }
 
     boolean comprar(Jugador jugador) {
         this.propietario = jugador;
-        
         this.propietario.paga(precioCompra);
-        
+
         return true;
     }
 
-    String getNombre() {
-        return Nombre;
-    }
-
-    float getPrecioCompra() {
-        return precioCompra;
-    }
-
-    float getPrecioEdificar() {
-        return precioEdificar;
+    public int cantidadCasasHoteles() {
+        return this.numCasas + this.numHoteles;
     }
 
     void informe(int iactual, ArrayList<Jugador> todos) {
-        Diario.getInstance().ocurreEvento("El jugador: " + todos.get(iactual).getNombre()
+        Diario.getInstance().ocurreEvento(todos.get(iactual).getNombre()
                 + " ha caido en la casilla: " + this.toString());
 
     }
 
-    private void init() {
-        tipo = null;
-        Nombre = null;
-        precioCompra = 0;
-        precioEdificar = 0;
-        precioBaseAlquiler = 0;
-        numCasas = 0;
-        numHoteles = 0;
-        propietario = null;
-        mazo = null;
-        sorpresa = null;
-    }
-
     void recibeJugador(int iactual, ArrayList<Jugador> todos) {
-
-        /*
-        
-        //Se puede hacer así más limpio? aunque no sea exactamente lo
-        //que se implementa en el diagrama estructurar?
-        
         TipoCasilla tipo = this.tipo;
-        
-        switch(tipo){
+
+        switch (tipo) {
             case CALLE:
                 recibeJugador_calle(iactual, todos);
+                break;
             case SORPRESA:
                 recibeJugador_sorpresa(iactual, todos);
+                break;
             case DESCANSO:
                 informe(iactual, todos);
-        }
-        
-         */
-        TipoCasilla tipo = this.tipo;
-
-        if (tipo == TipoCasilla.CALLE) {
-            recibeJugador_calle(iactual, todos);
+                break;
         }
 
-        if (tipo == TipoCasilla.SORPRESA) {
-            recibeJugador_sorpresa(iactual, todos);
-        }
-        if (tipo == TipoCasilla.DESCANSO) {
-            informe(iactual, todos);
-        }
     }
 
     private void recibeJugador_calle(int iactual, ArrayList<Jugador> todos) {
         this.informe(iactual, todos);
-        
         Jugador jugador = todos.get(iactual);
-        
-        if(!this.tienePropietario())
+
+        if (!this.tienePropietario())
             jugador.puedeComprarCasilla();
-        
         else
             this.tramitarAlquiler(jugador);
         
-    
     }
 
     private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos) {
-    
+
         Sorpresa sorpresa = this.mazo.siguiente();
         this.informe(iactual, todos);
         sorpresa.aplicarAJugador(iactual, todos);
-    
+
     }
 
     public boolean tienePropietario() {
         boolean resultado = false;
-        if (this.propietario != null) {
+        if (this.propietario != null) 
             resultado = true;
-        }
+        
+
         return resultado;
+
     }
 
     public void tramitarAlquiler(Jugador jugador) {
-        if (this.tienePropietario() && this.esEsteElPropietario(jugador)) {
+        if (this.tienePropietario() && !this.esEsteElPropietario(jugador)) {
             jugador.pagaAlquiler(this.getPrecioAlquilerCompleto());
+            this.propietario.recibe(this.getPrecioAlquilerCompleto());
         }
-        this.propietario.recibe(this.getPrecioAlquilerCompleto());
-    }
-
-    int getNumCasas() {
-        return numCasas;
-    }
-
-    int getNumHoteles() {
-        return numHoteles;
-    }
-
-    float getPrecioAlquilerCompleto() {
-        return precioBaseAlquiler * (FACTORALQUILERCASA + numCasas + FACTORALQUILERHOTEL * numHoteles);
     }
 
     boolean construirCasa(Jugador jugador) {
         jugador.paga(precioEdificar);
-        numCasas += 1;
+        numCasas++;
         return true;
     }
 
@@ -197,10 +170,9 @@ public class Casilla {
 
     public boolean esEsteElPropietario(Jugador jugador) {
         boolean resultado = false;
-        if (jugador == this.propietario) {
+        if (jugador == this.propietario) 
             resultado = true;
-        }
-
+        
         return resultado;
 
     }
@@ -208,9 +180,10 @@ public class Casilla {
     boolean igualdadIdentidad(Casilla otraParcela) {
         boolean igual = false;
 
-        if (this == otraParcela) {
+        if (this == otraParcela) 
             igual = true;
-        }
+        
+
         return igual;
     }
 
@@ -227,24 +200,31 @@ public class Casilla {
         }
 
         return igual;
+
     }
 
     public String toString() {
         String Cadena = null;
-        if (!this.tienePropietario()) {
-            
-            if(this.tipo == TipoCasilla.CALLE)
-                Cadena = "Calle " + Nombre + ". Precios: Compra: " + precioCompra + ", Edificar: " + precioEdificar + ", Alquiler Base: " + precioBaseAlquiler
-                    + ", Casas: " + numCasas + ", Hoteles: " + numHoteles + ".";
-            
-            if(this.tipo == TipoCasilla.SORPRESA)
-                Cadena = "Sorpresa";
-            if(this.tipo == TipoCasilla.DESCANSO)
-                Cadena = "Descanso";
-            
-        } else {
-            Cadena = "Esta calle es de: " + this.propietario.getNombre();
-        }
+
+        if (!this.tienePropietario()) 
+
+            switch (this.tipo) {
+                case CALLE:
+                    Cadena = "Calle " + Nombre + ". \n  Precios: \n     Compra: " + precioCompra + ", Edificar: " + precioEdificar + ", Alquiler Base: " + precioBaseAlquiler
+                            + ". \n     Cuenta con: " + numCasas + " casas y " + numHoteles + " hoteles.\n\n";
+                    break;
+                case SORPRESA:
+                    Cadena = "Sorpresa";
+                    break;
+                case DESCANSO:
+                    Cadena = "Descanso";
+                    break;
+            }
+
+         else 
+            Cadena = Nombre + " Esta calle es de: " + this.propietario.getNombre();
+        
+
         return Cadena;
     }
 }

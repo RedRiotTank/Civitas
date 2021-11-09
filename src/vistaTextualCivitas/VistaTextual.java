@@ -1,23 +1,20 @@
 package vistaTextualCivitas;
 
-import civitas.Casilla;
 import civitas.CivitasJuego;
 import civitas.Diario;
 import civitas.OperacionJuego;
 import controladorCivitas.Respuesta;
 import civitas.OperacionInmobiliaria;
-import civitas.Jugador;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class VistaTextual implements Vista {
 
-    private static String separador = "=====================";
+    private static final String separador = "=====================";
 
     private Scanner in;
     
-    private int iGestion;
+    //private int iGestion;
     private int iPropiedad;
 
     CivitasJuego juegoModel;
@@ -25,6 +22,7 @@ public class VistaTextual implements Vista {
     public VistaTextual(CivitasJuego juegoModel) {
         in = new Scanner(System.in);
         this.juegoModel = juegoModel;
+        iPropiedad = -1;
     }
 
     public void pausa() {
@@ -72,10 +70,12 @@ public class VistaTextual implements Vista {
     @Override
     public void actualiza() {
         int posicion;
+        
         System.out.println(this.juegoModel.getJugadorActual().toString());
+        
         if (this.juegoModel.finalDelJuego()) {
 
-            System.out.println("------RANKING------");
+            System.out.println("FIN DEL JUEGO\n------RANKING------");
             for (int i = 0; i < this.juegoModel.getJugadores().size(); i++) {
                 posicion = i + 1;
                 System.out.println(posicion + "º: " + this.juegoModel.getJugadores().get(i).toString());
@@ -110,7 +110,6 @@ public class VistaTextual implements Vista {
 
     @Override
     public int elegirPropiedad() {
-        
         ArrayList<String> propiedades = new ArrayList<>();
         
         for(int i=0; i<this.juegoModel.getNumPropiedadesJugadorActual(); i++)
@@ -124,7 +123,7 @@ public class VistaTextual implements Vista {
 
     @Override
     public void mostrarSiguienteOperacion(OperacionJuego operacion) {
-        System.out.println(operacion.toString());
+        System.out.println("\nLa siguiente operación a realizar es: " + operacion.toString() + "\n");
     }
 
     @Override

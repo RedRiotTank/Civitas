@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package civitas;
 
 import java.util.ArrayList;
@@ -27,36 +23,35 @@ public class MazoSorpresas {
     MazoSorpresas(boolean debug) {
         init();
         this.debug = debug;
-        if (debug) {
+        
+        if (debug) 
             Diario.getInstance().ocurreEvento("cambio a modo debugger");
-        }
-
+        
     }
 
     MazoSorpresas() {
-        init();
-        this.debug = false;
+        this(false);
     }
 
     public void alMazo(Sorpresa s) {
-        if (!barajada) {
-            sorpresas.add(s);
-        }
-
+        if (!barajada) 
+            this.sorpresas.add(s);
+        
     }
 
     Sorpresa siguiente() {   //Revisar.
         Sorpresa haSalido;
+        
         if (!barajada || usadas == sorpresas.size()) {
-            if (!debug) {
+            if (!debug) 
                 Collections.shuffle(sorpresas);
-            }
+            
             usadas = 0;
             barajada = true;
         }
 
         usadas++;
-        haSalido = sorpresas.get(0);    //0 es lel principio del mazo
+        haSalido = sorpresas.get(0);   
         sorpresas.add(haSalido);
         sorpresas.remove(0);
 
