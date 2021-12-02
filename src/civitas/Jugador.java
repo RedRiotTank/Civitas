@@ -19,7 +19,7 @@ public class Jugador implements Comparable<Jugador> {
     private boolean puedeComprar;
     private float saldo;
 
-    private ArrayList<Casilla> propiedades;
+    private ArrayList<CasillaCalle> propiedades;
     
     Jugador(String nombre) {
         this.casillaActual = 0;
@@ -45,7 +45,7 @@ public class Jugador implements Comparable<Jugador> {
         return nombre;
     }
 
-    protected ArrayList<Casilla> getPropiedades() {
+    protected ArrayList<CasillaCalle> getPropiedades() {
         return this.propiedades;
     }
 
@@ -87,7 +87,7 @@ public class Jugador implements Comparable<Jugador> {
         return Float.compare(otro.saldo, this.saldo);
     }
 
-    boolean comprar(Casilla titulo) {
+    boolean comprar(CasillaCalle titulo) {
         boolean result = false;
         
         if(puedeComprar){
@@ -116,7 +116,7 @@ public class Jugador implements Comparable<Jugador> {
         boolean existe = this.existeLaPropiedad(ip);
         
         if(existe){
-            Casilla propiedad = this.propiedades.get(ip);
+            CasillaCalle propiedad = this.propiedades.get(ip);
             Boolean puedoEdificar = this.puedoEdificarCasa(propiedad);
             
             if(puedoEdificar){
@@ -132,7 +132,7 @@ public class Jugador implements Comparable<Jugador> {
         boolean result = false;
         
         if(this.existeLaPropiedad(ip)){
-           Casilla propiedad = propiedades.get(ip);
+           CasillaCalle propiedad = propiedades.get(ip);
            boolean puedoEdificarHotel = this.puedoEdificarHotel(propiedad);
            
            if(puedoEdificarHotel){
@@ -209,7 +209,7 @@ public class Jugador implements Comparable<Jugador> {
         return true;
     }
 
-    private boolean puedoEdificarCasa(Casilla propiedad) {
+    private boolean puedoEdificarCasa(CasillaCalle propiedad) {
         boolean PuedoEdificar = false;
         
         float precioEdificar = propiedad.getPrecioEdificar();
@@ -220,7 +220,7 @@ public class Jugador implements Comparable<Jugador> {
         return PuedoEdificar;
     }
 
-    private boolean puedoEdificarHotel(Casilla propiedad) {
+    private boolean puedoEdificarHotel(CasillaCalle propiedad) {
         boolean puedoEdificarHotel = false;
         
         float precio = propiedad.getPrecioEdificar();

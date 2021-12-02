@@ -12,7 +12,7 @@ public class Tablero {
     private boolean porSalida;
 
     public Tablero() {
-        Casilla salida = new Casilla(TipoCasilla.DESCANSO, "Salida", 0, 0, 0);
+        Casilla salida = new Casilla( "Salida");
         this.casillas = new ArrayList<Casilla>();
         this.casillas.add(salida);
         this.porSalida = false;

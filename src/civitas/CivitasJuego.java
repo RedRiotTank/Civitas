@@ -74,7 +74,7 @@ public class CivitasJuego {
         Jugador jugadorActual = this.getJugadorActual();
         int numCasillaActual = jugadorActual.getCasillaActual();
         
-        Casilla casilla = this.getTablero().getCasilla(numCasillaActual);
+        CasillaCalle casilla = (CasillaCalle)this.getTablero().getCasilla(numCasillaActual);
         boolean res = jugadorActual.comprar(casilla);
 
         return res;
@@ -188,26 +188,26 @@ public class CivitasJuego {
         recalcar el hecho de que el diagrama especifica que es una agregación y no una composición.
          */
         
-        Casilla calle1 = new Casilla(TipoCasilla.CALLE, "El Carril", 100, 500, 25);
-        Casilla calle2 = new Casilla(TipoCasilla.CALLE, "La bodega", 100, 500, 25);
-        Casilla calle3 = new Casilla(TipoCasilla.CALLE, "Buena Vista", 100, 500, 25);
-        Casilla calle4 = new Casilla(TipoCasilla.CALLE, "Avenida El laderón", 100, 500, 25);
-        Casilla calle5 = new Casilla(TipoCasilla.CALLE, "Plaza de Andalucía", 100, 500, 25);
-        Casilla calle6 = new Casilla(TipoCasilla.CALLE, "El barrio", 100, 500, 25);
-        Casilla calle7 = new Casilla(TipoCasilla.CALLE, "Pilar de arriba", 100, 500, 25);
-        Casilla calle8 = new Casilla(TipoCasilla.CALLE, "El genasar", 100, 500, 25);
-        Casilla calle9 = new Casilla(TipoCasilla.CALLE, "Alcalá Galiano", 100, 500, 25);
-        Casilla calle10 = new Casilla(TipoCasilla.CALLE, "Federico García Lorca", 100, 500, 25);
-        Casilla calle11 = new Casilla(TipoCasilla.CALLE, "La viña", 100, 500, 25);
-        Casilla calle12 = new Casilla(TipoCasilla.CALLE, "Higueras", 100, 500, 25);
-        Casilla calle13 = new Casilla(TipoCasilla.CALLE, "Hospital", 100, 500, 25);
-        Casilla calle14 = new Casilla(TipoCasilla.CALLE, "Baena", 100, 500, 25);
+        CasillaCalle calle1 = new CasillaCalle( "El Carril", 100, 500, 25);
+        CasillaCalle calle2 = new CasillaCalle( "La bodega", 100, 500, 25);
+        CasillaCalle calle3 = new CasillaCalle("Buena Vista", 100, 500, 25);
+        CasillaCalle calle4 = new CasillaCalle( "Avenida El laderón", 100, 500, 25);
+        CasillaCalle calle5 = new CasillaCalle( "Plaza de Andalucía", 100, 500, 25);
+        CasillaCalle calle6 = new CasillaCalle("El barrio", 100, 500, 25);
+        CasillaCalle calle7 = new CasillaCalle( "Pilar de arriba", 100, 500, 25);
+        CasillaCalle calle8 = new CasillaCalle( "El genasar", 100, 500, 25);
+        CasillaCalle calle9 = new CasillaCalle( "Alcalá Galiano", 100, 500, 25);
+        CasillaCalle calle10 = new CasillaCalle( "Federico García Lorca", 100, 500, 25);
+        CasillaCalle calle11 = new CasillaCalle( "La viña", 100, 500, 25);
+        CasillaCalle calle12 = new CasillaCalle( "Higueras", 100, 500, 25);
+        CasillaCalle calle13 = new CasillaCalle( "Hospital", 100, 500, 25);
+        CasillaCalle calle14 = new CasillaCalle( "Baena", 100, 500, 25);
 
-        Casilla Sorpresa1 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa1", this.mazo);
-        Casilla Sorpresa2 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa2", this.mazo);
-        Casilla Sorpresa3 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa3", this.mazo);
-        Casilla Sorpresa4 = new Casilla(TipoCasilla.SORPRESA, "Sorpresa4", this.mazo);
-        Casilla Parking = new Casilla(TipoCasilla.DESCANSO, "Parking");
+        CasillaSorpresa Sorpresa1 = new CasillaSorpresa( "Sorpresa1", this.mazo);
+        CasillaSorpresa Sorpresa2 = new CasillaSorpresa("Sorpresa2", this.mazo);
+        CasillaSorpresa Sorpresa3 = new CasillaSorpresa("Sorpresa3", this.mazo);
+        CasillaSorpresa Sorpresa4 = new CasillaSorpresa( "Sorpresa4", this.mazo);
+        Casilla Parking = new Casilla( "Parking");
 
         this.tablero.aniadeCasilla(calle1);
         this.tablero.aniadeCasilla(calle2);
