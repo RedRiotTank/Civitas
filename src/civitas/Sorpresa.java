@@ -6,20 +6,18 @@ import java.util.ArrayList;
  *
  * @author albertoplaza
  */
-public class Sorpresa {
+public abstract class Sorpresa {
     private String texto;
     private int valor;
 
-    private TipoSorpresa tipo;
     
-    Sorpresa(TipoSorpresa tipo, String texto, int valor) {
-
-        this.tipo = tipo;
+    Sorpresa(String texto, int valor) {
         this.texto = texto;
         this.valor = valor;
     }
 
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos) {
+    abstract void aplicarAJugador(int actual, ArrayList<Jugador> todos)/* {
+       
         switch (this.tipo){
             
             case PAGARCOBRAR:
@@ -33,24 +31,24 @@ public class Sorpresa {
                 
         }
     }
-
-    private void aplicarAJugador_pagarCobrar(int actual, ArrayList<Jugador> todos) {
-        this.informe(actual, todos);
-        
-        todos.get(actual).modificaSaldo(valor);
-    }
+*/;
     
-    private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos) {
-        this.valor = todos.get(actual).cantidadCasasHoteles()*this.valor;
-        
-        this.informe(actual, todos);
-        todos.get(actual).modificaSaldo(valor);             
-    }
+     
 
-    private void informe(int actual, ArrayList<Jugador> todos) {
+     void informe(int actual, ArrayList<Jugador> todos) {
         Diario.getInstance().ocurreEvento("Se está aplicando una sorpresa a: " + todos.get(actual).getNombre() + "\n" + this.toString());
     }
 
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+     
+     
+    
     public String toString() {
         return texto;
     }

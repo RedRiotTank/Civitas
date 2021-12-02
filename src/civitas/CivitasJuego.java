@@ -155,17 +155,17 @@ public class CivitasJuego {
         recalcar el hecho de que el diagrama especifica que es una agregación y no una composición.
         */
         
-        Sorpresa Positiva1PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Recibe 500$ tras ganar concurso de belleza", 500);
-        Sorpresa Positiva2PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Recibe 100$ tras ganar concurso de ajedrez", 100);
-        Sorpresa Positiva3PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Recibe 50$ tras ganar partida de poker", 50);
-        Sorpresa Negativa1PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Te han pillado blanqueando capitales, multa de 500$ ", -500);
-        Sorpresa Negativa2PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Tu primo te pide 100$", -100);
-        Sorpresa Negativa3PAGARCOBRAR = new Sorpresa(TipoSorpresa.PAGARCOBRAR, "Multa de 50$ por exceo de velocidad", -50);
+        SorpresaPagarCobrar Positiva1PAGARCOBRAR = new SorpresaPagarCobrar( "Recibe 500$ tras ganar concurso de belleza", 500);
+        SorpresaPagarCobrar Positiva2PAGARCOBRAR = new SorpresaPagarCobrar( "Recibe 100$ tras ganar concurso de ajedrez", 100);
+        SorpresaPagarCobrar Positiva3PAGARCOBRAR = new SorpresaPagarCobrar( "Recibe 50$ tras ganar partida de poker", 50);
+        SorpresaPagarCobrar Negativa1PAGARCOBRAR = new SorpresaPagarCobrar( "Te han pillado blanqueando capitales, multa de 500$ ", -500);
+        SorpresaPagarCobrar Negativa2PAGARCOBRAR = new SorpresaPagarCobrar( "Tu primo te pide 100$", -100);
+        SorpresaPagarCobrar Negativa3PAGARCOBRAR = new SorpresaPagarCobrar( "Multa de 50$ por exceo de velocidad", -50);
 
-        Sorpresa Positiva1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 75$ por cada una", 75);
-        Sorpresa Positiva2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Tus edificaciones reportan beneficios, reciba 25$ por cada una", 25);
-        Sorpresa Negativa1PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", -75);
-        Sorpresa Negativa2PORCASAHOTEL = new Sorpresa(TipoSorpresa.PORCASAHOTEL, "Reparaciones generales en tus propiedades", -25);
+        SorpresaPorCasaHotel Positiva1PORCASAHOTEL = new SorpresaPorCasaHotel( "Tus edificaciones reportan beneficios, reciba 75$ por cada una", 75);
+        SorpresaPorCasaHotel Positiva2PORCASAHOTEL = new SorpresaPorCasaHotel( "Tus edificaciones reportan beneficios, reciba 25$ por cada una", 25);
+        SorpresaPorCasaHotel Negativa1PORCASAHOTEL = new SorpresaPorCasaHotel( "Reparaciones generales en tus propiedades", -75);
+        SorpresaPorCasaHotel Negativa2PORCASAHOTEL = new SorpresaPorCasaHotel( "Reparaciones generales en tus propiedades", -25);
 
         this.mazo.alMazo(Positiva1PAGARCOBRAR);
         this.mazo.alMazo(Positiva2PAGARCOBRAR);
