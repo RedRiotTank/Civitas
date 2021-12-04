@@ -66,7 +66,7 @@ public class Jugador implements Comparable<Jugador> {
         return sumatorio;
     }
 
-    public static int getCasasMax() {
+    public  int getCasasMax() {
         return CasasMax;
     }
 
@@ -74,7 +74,7 @@ public class Jugador implements Comparable<Jugador> {
         return CasasPorHotel;
     }
 
-    public static int getHotelesMax() {
+    public  int getHotelesMax() {
         return HotelesMax;
     }
 
@@ -225,7 +225,7 @@ public class Jugador implements Comparable<Jugador> {
         
         float precio = propiedad.getPrecioEdificar();
         
-        if(puedoGastar(precio) && propiedad.getNumHoteles() < Jugador.getHotelesMax() && propiedad.getNumCasas() >= Jugador.getCasasPorHotel())
+        if(puedoGastar(precio) && propiedad.getNumHoteles() < getHotelesMax() && propiedad.getNumCasas() >= Jugador.getCasasPorHotel())
             puedoEdificarHotel = true;
         
         return puedoEdificarHotel;
@@ -252,6 +252,19 @@ public class Jugador implements Comparable<Jugador> {
         
         return TienePropiedades;
     }
+    
+    protected Jugador convertir(){
+    
+        return null;
+    }
+    
+    public void actualizaPropiedadesPorConversion(JugadorEspeculador jug){
+        
+        for(CasillaCalle prop: this.propiedades){
+            prop.actualizaPropietarioPorConversion(jug);
+        }
+    }
+         
 
     public String toString() {
 

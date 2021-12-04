@@ -150,6 +150,10 @@ public class CasillaCalle extends Casilla {
         return igual;
 
     }
+    
+    public void actualizaPropietarioPorConversion(JugadorEspeculador jug){
+        this.propietario = jug;
+    }
 
     public String toString() {
         String Cadena = null;

@@ -166,6 +166,8 @@ public class CivitasJuego {
         SorpresaPorCasaHotel Positiva2PORCASAHOTEL = new SorpresaPorCasaHotel( "Tus edificaciones reportan beneficios, reciba 25$ por cada una", 25);
         SorpresaPorCasaHotel Negativa1PORCASAHOTEL = new SorpresaPorCasaHotel( "Reparaciones generales en tus propiedades", -75);
         SorpresaPorCasaHotel Negativa2PORCASAHOTEL = new SorpresaPorCasaHotel( "Reparaciones generales en tus propiedades", -25);
+        
+        SorpresaConvierteme ToEspeculador = new SorpresaConvierteme("Convierte al jugador en un jugador especulador", 0);
 
         this.mazo.alMazo(Positiva1PAGARCOBRAR);
         this.mazo.alMazo(Positiva2PAGARCOBRAR);
@@ -178,6 +180,8 @@ public class CivitasJuego {
         this.mazo.alMazo(Positiva2PORCASAHOTEL);
         this.mazo.alMazo(Negativa1PORCASAHOTEL);
         this.mazo.alMazo(Negativa2PORCASAHOTEL);
+        
+        this.mazo.alMazo(ToEspeculador);
 
     }
 

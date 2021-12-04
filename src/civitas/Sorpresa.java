@@ -16,22 +16,7 @@ public abstract class Sorpresa {
         this.valor = valor;
     }
 
-    abstract void aplicarAJugador(int actual, ArrayList<Jugador> todos)/* {
-       
-        switch (this.tipo){
-            
-            case PAGARCOBRAR:
-                
-                this.aplicarAJugador_pagarCobrar(actual, todos);
-                break;
-                
-            case PORCASAHOTEL:
-                this.aplicarAJugador_porCasaHotel(actual, todos);
-                break;
-                
-        }
-    }
-*/;
+    abstract void aplicarAJugador(int actual, ArrayList<Jugador> todos);
     
      
 
