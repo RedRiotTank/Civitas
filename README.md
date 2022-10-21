@@ -1,6 +1,6 @@
 # Civitas
 Civitas, monopoly simplified version.
 
-Final project for PDOO at UGR.
+WARNING: this repository is for academic purposes only, it may contain errors or bad habits.
 
-WARNING: that's a repository for academic purposes, it may contain errors or bad habits.
+Subject: PDOO 2ºGrade, Final practice.
